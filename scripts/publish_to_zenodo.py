@@ -39,7 +39,7 @@ R. O. Araz, X. Serra and D. Bogdanov, <em>Discogs-VI: A musical version
 identification dataset based on public editorial metadata</em>, ISMIR 2024,
 alongside this record.</p>
 
-<p>Code: <a href="https://github.com/">k-reciprocal-vi</a>.</p>"""
+<p>Code: <a href="https://github.com/pyroxenite/k-reciprocal-vi">github.com/pyroxenite/k-reciprocal-vi</a>.</p>"""
 
 METADATA = {
     "metadata": {
