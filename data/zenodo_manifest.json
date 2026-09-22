@@ -1,0 +1,42 @@
+{
+  "discogsvi_mini_clews_official_top500.pt": {
+    "md5": "41801b1fac0e629218bd3f5f16b0a3eb",
+    "size": 38463532
+  },
+  "discogsvi_test_clews_official_top1000.pt": {
+    "md5": "c983c41046ad1fd3271d279112be7bf8",
+    "size": 1431526622
+  },
+  "discogsvi_test_clews_reproduction_top1000.pt": {
+    "md5": "f87c8a408f6a30d3697b7089c8159617",
+    "size": 1432929600
+  },
+  "discogsvi_val_clews_official_top1000.pt": {
+    "md5": "0db876b12cfb6d9e5ef6e9846d229296",
+    "size": 451373996
+  },
+  "perquery_clews_official.npz": {
+    "md5": "e024b876d7ef9d43defbd340c29d43c0",
+    "size": 2274569
+  },
+  "perquery_clews_official_val.npz": {
+    "md5": "76998761e2bcc0de5dd761d792adea39",
+    "size": 444294
+  },
+  "perquery_clews_reproduction.npz": {
+    "md5": "15d5e685c1cbee8468460125844a412b",
+    "size": 2403125
+  },
+  "perquery_fish_official.npz": {
+    "md5": "b43e0f739b737b5e0739c7026aba657a",
+    "size": 2695811
+  },
+  "perquery_vinet_official.npz": {
+    "md5": "ca789c64381505d8ada82f2d7763fc92",
+    "size": 2941673
+  },
+  "shs100k_a2a_clews_official_top500.pt": {
+    "md5": "7758a28ba59ac19cead4fadd783d16c8",
+    "size": 15737186
+  }
+}

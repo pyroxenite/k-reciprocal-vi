@@ -20,17 +20,20 @@ class Reranker:
     """Holds the caches that make re-ranking cheap across many queries.
 
     expansion selects how R* is built:
-      "published"  the rule that produced the paper's numbers. A candidate joins
-                   through j when it ranks back either j or the query, and the
-                   backward test uses the full k1 window.
-      "zhong"      the rule of Zhong et al. (CVPR 2017) and of Eq. 1: both the
-                   forward and backward windows are ceil(k1 / 2), and only j
-                   counts as the anchor.
+      "standard"  the rule of Zhong et al. (CVPR 2017), which is Eq. 1 of the
+                  paper and what every reported number uses. Both the forward
+                  and backward windows are ceil(k1 / 2), and only j is the
+                  anchor.
+      "loose"     a slightly wider variant: a candidate also joins when it ranks
+                  back the feature's owner rather than only j, and the backward
+                  test uses the full k1 window. See the README for the measured
+                  difference.
     """
 
-    def __init__(self, shortlists, k1=30, k2=2, expansion="published", absent=ABSENT):
-        if expansion not in ("published", "zhong"):
-            raise ValueError("expansion must be 'published' or 'zhong'")
+    def __init__(self, shortlists, k1=30, k2=2, expansion="standard", absent=ABSENT):
+        expansion = {"zhong": "standard", "published": "loose"}.get(expansion, expansion)
+        if expansion not in ("standard", "loose"):
+            raise ValueError("expansion must be 'standard' or 'loose'")
         self.s = shortlists
         self.k1 = k1
         self.k2 = k2
@@ -77,7 +80,7 @@ class Reranker:
             if jr is None:
                 continue
             candidates = self.s.idx[jr, :self.khalf]
-            if self.expansion == "published":
+            if self.expansion == "loose":
                 members = [int(m) for m in candidates
                            if track in self._wide.get(int(m), ())
                            or j in self._wide.get(int(m), ())]
@@ -154,7 +157,7 @@ def rerank_row(reranker, row, lam=0.5, depth=200, max_distance=None):
     return np.argsort(mixed, kind="stable")
 
 
-def rerank(shortlists, k1=30, k2=2, lam=0.5, depth=200, expansion="published", rows=None):
+def rerank(shortlists, k1=30, k2=2, lam=0.5, depth=200, expansion="standard", rows=None):
     """Re-rank every query and return the new track ids per row.
 
     Ranks beyond `depth` keep their original position.

@@ -10,11 +10,11 @@ every encoder we tried:
 
 | first stage | baseline mAP | after re-ranking |
 |---|---|---|
-| CLEWS (official checkpoint) | 76.91 | **78.73** (+1.82 ± 0.04) |
-| CLEWS, keeping rank 1 fixed | 76.91 | **78.84** (+1.93 ± 0.04) |
-| Fish (official checkpoint) | 68.82 | 73.00 (+4.18 ± 0.05) |
-| Discogs-VINet (official checkpoint) | 44.26 | 49.86 (+5.60 ± 0.05) |
-| CLEWS (our reproduction) | 70.45 | 73.25 (+2.80 ± 0.04) |
+| CLEWS (official checkpoint) | 76.91 | **78.68** (+1.77 ± 0.04) |
+| CLEWS, keeping rank 1 fixed | 76.91 | **78.79** (+1.88 ± 0.03) |
+| Fish (official checkpoint) | 68.82 | 72.94 (+4.12 ± 0.05) |
+| Discogs-VINet (official checkpoint) | 44.26 | 49.83 (+5.57 ± 0.05) |
+| CLEWS (our reproduction) | 70.45 | 73.18 (+2.73 ± 0.04) |
 
 It costs 15 to 35 CPU-minutes for the whole benchmark, single threaded, against
 roughly 17 GPU-hours to encode the same collection.
@@ -168,6 +168,24 @@ Each function names the part of the paper it implements.
 | `final_distance` | Sec. 3.2, Eq. 5, the mix with the original distance |
 | `paired_delta_ap` | Sec. 3.3, Eqs. 6 and 7, the exact paired estimator |
 | `qe.query_expansion` | Sec. 4.3, AQE and alpha-QE |
+
+## Two expansion rules
+
+`expansion="standard"` (the default) is the rule of Zhong et al. and Eq. 1 of the
+paper: a candidate `m` joins the expansion through `j` only when `j` ranks it
+back, both windows being `ceil(k1/2)`.
+
+`expansion="loose"` is a wider variant we ran first, in which `m` also qualifies
+by ranking back the feature's owner rather than only `j`, and the backward test
+uses the full `k1` window. It admits about 9% more tracks into `R*` (22.5 against
+20.7 members on average) at slightly lower purity (67.8% of members are true
+versions, against 68.6%).
+
+It is marginally better: on 2,500 Discogs-VI test queries the paired difference
+is +0.06 +/- 0.05 mAP points in its favour, and the two rules disagree on about
+half of the queries. That is within noise of each other, so the paper reports
+the standard rule and this repository keeps the variant for anyone who wants to
+trade a little precision for a little recall in the expansion.
 
 ## What this does not do
 
