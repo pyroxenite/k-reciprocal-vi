@@ -1,0 +1,14 @@
+[project]
+name = "kreciprocal-vi"
+version = "0.1.0"
+description = "Training-free k-reciprocal re-ranking for musical version identification"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+dumps = ["torch>=2.0"]      # only needed to read the .pt shortlist dumps
+figures = ["matplotlib>=3.7"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: Training-free k-reciprocal re-ranking for musical version identification
+message: If you use this software or the released data, please cite the paper.
+authors:
+  - family-names: Jardin
+    given-names: Pharoah
+  - family-names: Peeters
+    given-names: Geoffroy
+  - family-names: Larrouturou
+    given-names: Gustave
+version: 0.1.0
+license: MIT
